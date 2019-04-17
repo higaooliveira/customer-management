@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cadastro</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/estilo.css') }}" media="screen" />
+</head>
+<body>
+	<div class="content">
+		<div class="form">
+			<h1>Cadastro</h1>
+			<form action='cadastrar' method="post">
+				<label> Username:
+					<input type="text" name="username"></label>
+				<label> Password:			
+				<input type="password" name="password"> </label>
+				<input type="submit" name="Enviar">
+			</form>
+		</div>
+	</div>
+</body>
+</html>
