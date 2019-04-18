@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Cadastro</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" media="screen" />
+</head>
+<body>
+	{% include 'menu.html' %}
+	<div class="main-container">	
+		<div class="card">
+		{% if customers%}
+			<div class="container">
+				<h2><b>Clientes Cadastrados</b></h2>
+				<table>
+					<tr>
+						<th>#</th>
+						<th>Nome</th>
+						<th>Data de Nascimento</th>
+						<th>CPF</th>
+						<th>Rg</th>
+						<th>Telefone</th>
+						<th></th>
+					</tr>
+					{% for customer in customers %}
+					<tr>
+						<td>{{customer.id}}</td>
+						<td>{{customer.name}}</td>
+						<td>{{customer.date_birth}}</td>
+						<td>{{customer.cpf}}</td>
+						<td>{{customer.rg}}</td>
+						<td>{{customer.phone}}</td>
+						<td><a href="{{customer.id}}">Ver Cliente</a> | <a href="{{customer.id}}">Deletar Cliente</a></td>
+					</tr>
+					{%endfor%}
+				</table>
+			</div>
+		{%endif %}
+		</div>
+	</div>
+
+</body>
+</html>

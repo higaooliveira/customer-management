@@ -4,9 +4,9 @@ class User(db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(10), unique=False)
-    email = db.Column(db.String, unique=True)
-    password = db.Column(db.String)
+    name = db.Column(db.String(100), unique=False, nullable=False)
+    email = db.Column(db.String(100), unique=True)
+    password = db.Column(db.String(100))
 
     def __init__(self, name, email, password):
         self.name = name
@@ -20,11 +20,11 @@ class Customer(db.Model):
     __tablename__ = 'customers'
 
     id = db.Column(db.Integer, primary_key = True)
-    name = db.Column(db.String)
+    name = db.Column(db.String(100))
     date_birth = db.Column(db.DateTime, nullable=False)
-    cpf = db.Column(db.String, unique=True)
-    rg = db.Column(db.String, unique=True)
-    phone = db.Column(db.String, unique=True)
+    cpf = db.Column(db.String(100), unique=True)
+    rg = db.Column(db.String(100), unique=True)
+    phone = db.Column(db.String(100), unique=True)
 
     def __init__(self, name ,date_birth, cpf, rg, phone):
         self.name = name
@@ -40,11 +40,11 @@ class Addressess(db.Model):
     __tablename__ = 'address'
 
     id = db.Column(db.Integer, primary_key=True)
-    street = db.Column(db.String)
-    district = db.Column(db.String)
-    city = db.Column(db.String)
-    state = db.Column(db.String)
-    country = db.Column(db.String)
+    street = db.Column(db.String(100))
+    district = db.Column(db.String(100))
+    city = db.Column(db.String(100))
+    state = db.Column(db.String(100))
+    country = db.Column(db.String(100))
     customer_id = db.Column(db.Integer, db.ForeignKey('customers.id'))
     customer = db.relationship('Customer', foreign_keys=customer_id)
 
