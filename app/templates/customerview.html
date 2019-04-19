@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Cliente</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" media="screen" />
+</head>
+<body>
+{% include 'menu.html' %}
+    <div class="main-container">
+		<div class="card">
+		{% if customer%}
+			<div class="container">
+				<h2><b>{{customer.name}}</b></h2>
+				<div>
+						<div>{{customer.date_birth}}</div>
+						<div>{{customer.cpf}}</div>
+						<div>{{customer.rg}}</div>
+						<div>{{customer.phone}}</div>
+						<div><a href="/editcustomer/{{customer.id}}">Editar Cliente</a> | <a href="/deletecustomer/{{customer.id}}">Deletar Cliente</a></div>
+                        <div><a href="/newaddress/{{customer.id}}">Adicionar Endereço</a></div>
+                </div>
+			</div>
+		{%endif %}
+		</div>
+	</div>
+
+    <div class="main-container address">
+		<div class="card">
+		{% if addresses%}
+			<div class="container">
+				<h2><b>Endereços de {{customer.name}}</b></h2>
+				<table>
+					<tr>
+						<th>#</th>
+						<th>Rua</th>
+						<th>Bairro</th>
+						<th>Cidade</th>
+						<th>Estado</th>
+						<th>País</th>
+					</tr>
+					{% for address in addresses%}
+					<tr>
+                        <td>{{address.id}}</td>
+						<td>{{address.street}}</td>
+						<td>{{address.district}}</td>
+						<td>{{address.city}}</td>
+						<td>{{address.state}}</td>
+                        <td>{{address.country}}</td>
+						<td><a href="/editaddress/{{address.id}}">Editar Endereço</a> | <a href="/deleteaddress/{{address.id}}">Excluir Endereço</a></td>
+					</tr>
+					{%endfor%}
+				</table>
+			</div>
+		{%endif %}
+		</div>
+	</div>
+</body>
+</html>

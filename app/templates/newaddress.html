@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Editar Cliente</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" media="screen" />
+</head>
+<body>
+	{% include 'menu.html' %}
+	<div class="content">
+		<div class="form">
+			<h1>Novo endereço</h1>
+			<form action='/newaddressaction' method="post">
+				<label> Rua:
+					<input type="text" name="street">
+				</label>
+				<label> Bairro:
+					<input type="text" name="district">
+				</label>
+				<label> Cidade:
+					<input type="text" name="city">
+				</label>
+				<label> Estado:
+					<input type="text" name="state">
+				</label>
+				<label> País:
+					<input type="text" name="country">
+				</label>
+                <input type="hidden" name="customer_id" value="{{customer_id}}">
+				<input type="submit" name="Enviar">
+			</form>
+		</div>
+	</div>
+</body>
+</html>
