@@ -17,10 +17,10 @@ class AddressController:
             if addressModel:
                 db.session.add(addressModel)
                 db.session.commit()
-                return ['Endereço cadastrado com sucesso!', 'success']
-            return ['Não foi possível cadastrar', 'error']
+                return True
+            return False
         except:
-            return ['Não foi possível cadastrar', 'error']
+            return False
 
     def get_address_by_customer_id(self, customer_id):
         address = Addressess.query.filter_by(customer_id = customer_id).all()
@@ -30,13 +30,13 @@ class AddressController:
 
     def get_address_by_id(self, id):
         if not id:
-            return "Erro"
+            return False
 
         result = Addressess.query.get(id)
         if result:
             return result
 
-        return "Erro"
+        return False
 
     def edit_address(self,id, street, district, city, state, country,customer_id):
         try:
@@ -49,19 +49,19 @@ class AddressController:
                 address.country = country
                 address.customer_id = customer_id
                 db.session.commit()
-                return ['Endereço atualizado com sucesso!', 'success']
-            return ['Não foi possível atualizar endereço', 'error']
+                return True
+            return False
         except:
-            return ['Não foi possível atualizar endereço', 'error']
+            return False
 
     def delete_address(self, id):
         if not id:
-            return ['Não foi possível excluir o endereço', 'error']
+            return False
 
         try:
             address = self.get_address_by_id(id)
             db.session.delete(self.get_address_by_id(id))
             db.session.commit()
-            return ['Endereço excluído com sucesso', 'success', address.customer_id]
+            return address.customer_id
         except:
-            return ['Não foi possível excluir o endereço', 'error']
+            return False

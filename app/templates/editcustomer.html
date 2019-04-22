@@ -2,35 +2,43 @@
 <html>
 <head>
 	<title>Editar Cliente</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" media="screen" />
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" media="screen" />
 </head>
 <body>
 	{% include 'menu.html' %}
     {% if customer%}
-	<div class="content">
-		<div class="form">
-			<h1>Editar cliente</h1>
-			<form action='/editcustomeraction' method="post">
-				<label> Nome:
-					<input type="text" name="name" value="{{customer.name}}">
-				</label>
-				<label> Data de Nascimento:
-					<input type="date" name="date_birth" value="{{customer.date_birth}}">
-				</label>
-				<label> CPF:
-					<input type="text" name="cpf" value="{{customer.cpf}}">
-				</label>
-				<label> Rg:
-					<input type="text" name="rg" value="{{customer.rg}}">
-				</label>
-				<label> Telefone:
-					<input type="text" name="phone" value="{{customer.phone}}">
-				</label>
-                <input type="hidden" name="id" value="{{customer.id}}">
-				<input type="submit" name="Enviar">
-			</form>
+    <div class="container">
+    	<div class="row">
+			<div class="content col-md-8">
+				<div class="form">
+					<h1>Editar cliente</h1>
+					<form action='/editcustomeraction' method="post">
+						<label> Nome:
+							<input type="text" name="name" value="{{customer.name}}">
+						</label>
+						<label> Data de Nascimento:
+							<input type="text" name="date_birth" value="{{customer.date_birth}}">
+						</label>
+						<label> CPF:
+							<input type="text" name="cpf" value="{{customer.cpf}}">
+						</label>
+						<label> Rg:
+							<input type="text" name="rg" value="{{customer.rg}}">
+						</label>
+						<label> Telefone:
+							<input type="text" name="phone" value="{{customer.phone}}">
+						</label>
+		                <input type="hidden" name="id" value="{{customer.id}}">
+						<input type="submit" name="Enviar">
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
     {% endif %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.mask.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/forms.js') }}"></script>
 </body>
 </html>

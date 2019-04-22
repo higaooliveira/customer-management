@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<title>Cadastro</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" media="screen" />
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" media="screen" />
 </head>
 <body>
@@ -10,28 +11,32 @@
 		<div class="card">
 		{% if customers%}
 			<div class="container">
-				<h2><b>Clientes Cadastrados</b></h2>
-				<table>
-					<tr>
-						<th>#</th>
-						<th>Nome</th>
-						<th>Data de Nascimento</th>
-						<th>CPF</th>
-						<th>Rg</th>
-						<th>Telefone</th>
-						<th></th>
-					</tr>
-					{% for customer in customers %}
-					<tr>
-						<td>{{customer.id}}</td>
-						<td>{{customer.name}}</td>
-						<td>{{customer.date_birth}}</td>
-						<td>{{customer.cpf}}</td>
-						<td>{{customer.rg}}</td>
-						<td>{{customer.phone}}</td>
-						<td><a href="/viewcustomer/{{customer.id}}">Ver Cliente</a> | <a href="/deletecustoemr/{{customer.id}}">Deletar Cliente</a></td>
-					</tr>
-					{%endfor%}
+				<h1><b>Clientes Cadastrados</b></h1>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Nome</th>
+							<th>Data de Nascimento</th>
+							<th>CPF</th>
+							<th>Rg</th>
+							<th>Telefone</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for customer in customers %}
+						<tr>
+							<td>{{customer.id}}</td>
+							<td>{{customer.name}}</td>
+							<td>{{customer.date_birth}}</td>
+							<td>{{customer.cpf}}</td>
+							<td>{{customer.rg}}</td>
+							<td>{{customer.phone}}</td>
+							<td><a href="/viewcustomer/{{customer.id}}">Ver Cliente</a> | <a href="/deletecustoemr/{{customer.id}}">Deletar Cliente</a></td>
+						</tr>
+						{%endfor%}
+					</tbody>
 				</table>
 			</div>
 		{%endif %}

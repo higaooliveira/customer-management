@@ -68,3 +68,6 @@ class CustomerController:
             return ['Não foi possível cadastrar', 'error']
         except:
             return ['Não foi possível cadastrar', 'error']
+
+    def get_all_customers_count(self):
+        return len(Customer.query.all())

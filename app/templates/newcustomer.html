@@ -2,32 +2,40 @@
 <html>
 <head>
 	<title>Login</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" media="screen" />
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" media="screen" />
 </head>
 <body>
 	{% include 'menu.html' %}
-	<div class="content">
-		<div class="form">
-			<h1>Novo cliente</h1>
-			<form action='createcustomer' method="post">
-				<label> Nome:
-					<input type="text" name="name">
-				</label>
-				<label> Data de Nascimento:
-					<input type="date" name="date_birth">
-				</label>
-				<label> CPF:
-					<input type="text" name="cpf">
-				</label>
-				<label> Rg:
-					<input type="text" name="rg">
-				</label>
-				<label> Telefone:
-					<input type="text" name="phone">
-				</label>
-				<input type="submit" name="Enviar">
-			</form>
+	<div class="container">
+		<div class="row">
+			<div class="content col-md-8">
+				<div class="form">
+					<h1>Novo cliente</h1>
+					<form action='createcustomer' method="post">
+						<label> Nome:
+							<input type="text" name="name">
+						</label>
+						<label> Data de Nascimento:
+							<input type="text" name="date_birth" data-mask-clearifnotmatch="true" data-mask="00/00/0000">
+						</label>
+						<label> CPF:
+							<input type="text" name="cpf">
+						</label>
+						<label> Rg:
+							<input type="text" name="rg">
+						</label>
+						<label> Telefone:
+							<input type="text" name="phone">
+						</label>
+						<input type="submit" name="Enviar">
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.mask.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/forms.js') }}"></script>
 </body>
 </html>

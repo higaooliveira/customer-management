@@ -3,55 +3,67 @@
 <head>
     <title>Cliente</title>
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" media="screen" />
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" media="screen" />
+
 </head>
 <body>
 {% include 'menu.html' %}
-    <div class="main-container">
-		<div class="card">
-		{% if customer%}
-			<div class="container">
-				<h2><b>{{customer.name}}</b></h2>
+    <div class="container">
+    	<div class="row">
+			<div class="card col-md-12">
+			{% if customer%}
+				<h1><b>{{customer.name}}</b></h1>
 				<div>
-						<div>{{customer.date_birth}}</div>
-						<div>{{customer.cpf}}</div>
-						<div>{{customer.rg}}</div>
-						<div>{{customer.phone}}</div>
-						<div><a href="/editcustomer/{{customer.id}}">Editar Cliente</a> | <a href="/deletecustomer/{{customer.id}}">Deletar Cliente</a></div>
-                        <div><a href="/newaddress/{{customer.id}}">Adicionar Endereço</a></div>
+						<div><h4>Data de nascimento: {{customer.date_birth}}</h4></div>
+						<div><h4>CPF: {{customer.cpf}}</h4></div>
+						<div><h4>RG: {{customer.rg}}</h4></div>
+						<div><h4>Telefone: {{customer.phone}}</h4></div>
+						<div>
+							<h4>
+								<a href="/editcustomer/{{customer.id}}">Editar Cliente</a> | <a href="/deletecustomer/{{customer.id}}">Deletar Cliente</a>
+							</h4>
+						</div>
+                        <div>
+                        	<h4>
+                        		<a href="/newaddress/{{customer.id}}">Adicionar Endereço</a>
+                        	</h4>
+                        </div>
                 </div>
+			{%endif %}
 			</div>
-		{%endif %}
 		</div>
-	</div>
-
-    <div class="main-container address">
-		<div class="card">
-		{% if addresses%}
-			<div class="container">
-				<h2><b>Endereços de {{customer.name}}</b></h2>
-				<table>
-					<tr>
-						<th>#</th>
-						<th>Rua</th>
-						<th>Bairro</th>
-						<th>Cidade</th>
-						<th>Estado</th>
-						<th>País</th>
-					</tr>
-					{% for address in addresses%}
-					<tr>
-                        <td>{{address.id}}</td>
-						<td>{{address.street}}</td>
-						<td>{{address.district}}</td>
-						<td>{{address.city}}</td>
-						<td>{{address.state}}</td>
-                        <td>{{address.country}}</td>
-						<td><a href="/editaddress/{{address.id}}">Editar Endereço</a> | <a href="/deleteaddress/{{address.id}}">Excluir Endereço</a></td>
-					</tr>
-					{%endfor%}
+		<div class="row">
+			<div class="card nd-card col-md-12">
+			{% if addresses%}
+				<h1><b>Endereços de {{customer.name}}</b></h1>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Rua</th>
+							<th>Bairro</th>
+							<th>Cidade</th>
+							<th>Estado</th>
+							<th>País</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for address in addresses%}
+						<tr>
+	                        <td>{{address.id}}</td>
+							<td>{{address.street}}</td>
+							<td>{{address.district}}</td>
+							<td>{{address.city}}</td>
+							<td>{{address.state}}</td>
+	                        <td>{{address.country}}</td>
+							<td><a href="/editaddress/{{address.id}}">Editar Endereço</a> | <a href="/deleteaddress/{{address.id}}">Excluir Endereço</a></td>
+						</tr>
+						{%endfor%}
+					</tbody>
 				</table>
+			{%endif %}
 			</div>
-		{%endif %}
 		</div>
 	</div>
 </body>

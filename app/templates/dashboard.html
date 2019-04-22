@@ -2,9 +2,30 @@
 <html>
 <head>
 	<title>Dashboard</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" media="screen" />
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" media="screen" />
 </head>
 <body>
 {% include 'menu.html' %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-6">			
+			<div class="card" style="width: 100%;">
+				<div class="card-body">
+					<h1 class="card-title">{{users}}</h1>
+					<h2 class="card-subtitle mb-2 text-muted">Usuários cadastrados no sistema</h2>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">			
+			<div class="card" style="width: 100%;">
+				<div class="card-body">
+					<h1 class="card-title">{{customers}}</h1>
+					<h2 class="card-subtitle mb-2 text-muted">Clientes cadastrados no sistema</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 </body>
 </html>

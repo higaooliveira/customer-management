@@ -2,33 +2,27 @@
 <html>
 <head>
 	<title>Login</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" media="screen" />
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" media="screen" />
 </head>
 <body>
-	<div class="content">
-		{% with messages = get_flashed_messages() %}
-			{% if messages %}
-			<div class="alerts">	
-				<ul class="flashes">
-					{% for category, message in messages %}
-					<li class="flash {{category}}">{{message}}</li>
-					{% endfor %}
-				</ul>
+	<div class="container">
+		<div class="row">
+			<div class="content col-md-8">
+				<div class="form">
+					<h1>Login</h1>
+					<form action='loginaction' method="post">
+						<label> Email:
+							<input type="text" name="email" class="input-box">
+						</label>
+						<label> Senha:			
+							<input type="password" name="password" class="input-box">
+						</label>
+						<input type="submit" name="Enviar">
+					</form>
+					<a href="/register" class="cadastrar"> Cadastre-se</a>
+				</div>
 			</div>
-			{% endif %}
-		{% endwith %}
-		<div class="form">
-			<h1>Login</h1>
-			<form action='loginaction' method="post">
-				<label> Username:
-					<input type="text" name="email">
-				</label>
-				<label> Password:			
-					<input type="password" name="password">
-				</label>
-				<input type="submit" name="Enviar">
-			</form>
-			<a href="/register" class="cadastrar"> Cadastre-se</a>
 		</div>
 	</div>
 </body>

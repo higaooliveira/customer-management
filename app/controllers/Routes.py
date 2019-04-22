@@ -33,6 +33,7 @@ def login_action():
         session['user'] = result.name
         session['email'] = result.email
         return redirect(url_for('dashboard'))
+    return redirect(url_for('login'))
 
 @app.route('/logoutaction')
 def logout_action():
@@ -55,7 +56,6 @@ def register_action():
         user = UserController(formData['name'], formData['email'], formData['password'])
         result = user.register_action()
         if result[1] is 'success':
-            flash(result[0], result[1])
             return redirect(url_for('login'))
     return redirect(url_for('register'))
 
@@ -66,7 +66,11 @@ def dashboard():
     if not session.get('logged_in'):
         return redirect(url_for('login'))
     else:
-        return render_template('dashboard.html', user=session['user'])
+        customer = CustomerController()
+        user = UserController()
+        customers = customer.get_all_customers_count()
+        users = user.get_all_users_count()
+        return render_template('dashboard.html',customers=customers, users=users ,user=session['user'])
 
 
 @app.route('/newcustomer')
@@ -74,7 +78,7 @@ def new_customer():
     if not session.get('logged_in'):
         return redirect(url_for('login'))
     else:
-        return render_template('newcustomer.html')
+        return render_template('newcustomer.html',user=session['user'])
 
 
 @app.route('/createcustomer', methods=["POST"])
@@ -84,10 +88,8 @@ def create_customer():
         user = UserController()
         result = user.create_customer(formData['name'], formData['date_birth'], formData['cpf'], formData['rg'], formData['phone'])
         if result:
-            flash(result[0], result[1])
-            return redirect(url_for('list_cutomers'))
+            return redirect(url_for('list_customers'))
 
-    flash('Erro ao cadastrar cliente', 'error')
     return redirect(url_for('new_customer'))
 
 
@@ -96,7 +98,7 @@ def list_customers():
     customer = CustomerController()
     result = customer.get_all_customers()
     if result:
-        return render_template('listcustomers.html', customers=result)
+        return render_template('listcustomers.html', customers=result, user=session['user'])
     return "Não tem cliente"
 
 
@@ -107,7 +109,7 @@ def view_customer(id):
     result = customer.get_customer_by_id(id)
     locations = address.get_address_by_customer_id(id)
     if result:
-        return render_template('customerview.html', customer=result, addresses=locations)
+        return render_template('customerview.html', customer=result, addresses=locations,user=session['user'] )
     return "Não tem cliente"
 
 
@@ -115,9 +117,7 @@ def view_customer(id):
 def delete_customer(id):
     customer = CustomerController()
     result = customer.delete_customer(id)
-    if result:
-        flash(result[0], result[1])
-    flash
+
     return redirect(url_for('list_customers'))
 
 
@@ -128,7 +128,7 @@ def edit_customer(id):
     else:
         customer = CustomerController()
         result = customer.get_customer_by_id(id)
-        return render_template('editcustomer.html', customer=result)
+        return render_template('editcustomer.html', customer=result,user=session['user'])
 
 
 @app.route('/editcustomeraction', methods=["POST"])
@@ -139,20 +139,18 @@ def edit_customer_action():
         result = user.edit_customer(formData['id'], formData['name'], formData['date_birth'], formData['cpf']
                                     , formData['rg'], formData['phone'])
         if result:
-            flash(result[0], result[1])
             return redirect(url_for('view_customer', id=formData['id']))
 
 
 @app.route('/newaddress/<int:customer_id>')
 def new_address(customer_id):
     if not customer_id:
-        flash(['Não foi possível adicionar um novo endereço', 'error'])
         return redirect(url_for('list_customers'))
 
     if not session.get('logged_in'):
         return redirect(url_for('login'))
     else:
-        return render_template('newaddress.html', customer_id = customer_id)
+        return render_template('newaddress.html', customer_id = customer_id,user=session['user'])
 
 
 @app.route('/newaddressaction', methods=["POST"])
@@ -163,7 +161,6 @@ def new_address_action():
         result = user.new_customer_address(formData['street'], formData['district'], formData['city'], formData['state']
                                            , formData['country'], formData['customer_id'])
         if result:
-            flash(result[0], result[1])
             return redirect(url_for('view_customer', id=formData['customer_id']))
 
 @app.route('/editaddress/<int:id>')
@@ -173,7 +170,7 @@ def edit_address(id):
     else:
         address = AddressController()
         result = address.get_address_by_id(id)
-        return render_template('editaddress.html', address=result)
+        return render_template('editaddress.html', address=result,user=session['user'])
 
 
 @app.route('/editaddressaction', methods=['POST'])
@@ -184,17 +181,12 @@ def edit_address_action():
         result = user.edit_customer_address(formData['id'], formData['street'], formData['district'], formData['city']
                                             , formData['state'] , formData['country'], formData['customer_id'])
         if result:
-            flash(result[0], result[1])
             return redirect(url_for('view_customer', id=formData['customer_id']))
 
 @app.route('/deleteaddress/<int:id>')
 def delete_address_action(id):
     address = AddressController()
     result = address.delete_address(id)
-    print(result)
     if result:
-        if len(result) == 3:
-            flash(result[0], result[1])
-            return redirect(url_for('view_customer', id=result[2]))
-        flash(result[0], result[1])
-        return redirect(url_for('list_customers'))
+        return redirect(url_for('view_customer', id=result))
+    return redirect(url_for('list_customers'))

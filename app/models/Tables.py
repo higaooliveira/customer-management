@@ -21,7 +21,7 @@ class Customer(db.Model):
 
     id = db.Column(db.Integer, primary_key = True)
     name = db.Column(db.String(100))
-    date_birth = db.Column(db.DateTime, nullable=False)
+    date_birth = db.Column(db.String(100), nullable=False)
     cpf = db.Column(db.String(100), unique=True)
     rg = db.Column(db.String(100), unique=True)
     phone = db.Column(db.String(100), unique=True)

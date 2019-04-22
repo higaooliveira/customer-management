@@ -3,26 +3,31 @@
 <head>
 	<title>Cadastro</title>
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}" media="screen" />
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" media="screen" />
 </head>
 <body>
-	<div class="content">
-		<div class="form">
-			<h1>Cadastro</h1>
-			<form action='registeraction' method="post">
-				<label>
-					Name:
-					<input type="text" name="name">
-				</label>
-				<label> 
-					Email:
-					<input type="text" name="email">
-				</label>
-				<label> 
-					Password:			
-					<input type="password" name="password"> 
-				</label>
-				<input type="submit" name="Enviar">
-			</form>
+	<div class="container register">
+		<div class="row">
+			<div class="content col-md-8">
+				<div class="form">
+					<h1>Cadastro</h1>
+					<form action='registeraction' method="post">
+						<label>
+							Nome:
+							<input type="text" name="name" class="input-box">
+						</label>
+						<label> 
+							Email:
+							<input type="text" name="email" class="input-box">
+						</label>
+						<label> 
+							Senha:			
+							<input type="password" name="password" class="input-box"> 
+						</label>
+						<input type="submit" name="Enviar">
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>

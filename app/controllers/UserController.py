@@ -22,12 +22,11 @@ class UserController:
             if userModel:
                 db.session.add(userModel)
                 db.session.commit()
-                db.session.delete(userModel)
 
-                return ['Cadastrado com sucesso!', 'success']
-            return ['Não foi possível cadastrar', 'error']
+                return True
+            return False
         except:
-            return 	['Não foi possível cadastrar', 'error']
+            return 	False
 
     def create_customer(self, name, date_birth, cpf, rg, phone):
         customer = CustomerController(name, date_birth, cpf, rg, phone)
@@ -52,3 +51,6 @@ class UserController:
         if address:
             result = address.edit_address(id, street, district, city, state, country,customer_id)
             return result
+
+    def get_all_users_count(self):
+        return len(User.query.all())
